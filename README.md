@@ -1,6 +1,6 @@
 # 🌡️ Warmly – Écosystème IoT pour Radiateurs Connectés
 
-**Warmly** est une alternative personnelle et améliorée à la solution Heatzy, développée de manière autonome dans le cadre de mon BTS CIEL (Cybersécurité, Informatique et réseaux, Électronique). Ce projet permet de piloter, automatiser et superviser des radiateurs électriques à distance.
+**Warmly** est une alternative personnelle et améliorée à la solution Heatzy, développée de manière autonome. Ce projet permet de piloter, automatiser et superviser des radiateurs électriques à distance.
 
 ---
 
