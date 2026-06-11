@@ -125,6 +125,7 @@ classDiagram
   Main *-- FilPilote
   Main *-- OTA
 ```
+<details>
 ---
 
 ## 🛠️ Compétences Support, Système & Réseau développées
