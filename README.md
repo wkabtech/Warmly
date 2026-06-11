@@ -55,6 +55,20 @@ Ce projet valide des compétences clés directement transférables au **Support 
 * *LinkedIn :* https://linkedin.com/in/walidkabli
 * *GitHub :* https://github.com/wkabtech
 
+```mermaid
+  sequenceDiagram
+    autonumber
+    actor Utilisateur
+    participant App as Application Mobile
+    participant API as API PHP
+    participant BDD as Base de Données
+
+    Utilisateur->>App: Saisir email + mot de passe
+    App->>API: POST /connexion
+    API->>BDD: Vérifier identifiants
+    BDD-->>API: Données utilisateur + token JWT
+    API-->>App: Retourne le JWT + données de session
+```
 ## 📊 Architecture, Flux Réseaux & Diagrammes
 *Cliquez sur les sections ci-dessous pour dérouler et analyser les flux et l'architecture technique du projet.*
 
@@ -144,16 +158,3 @@ classDiagram
   Main *-- Temperature
   Main *-- FilPilote
   Main *-- OTA
-
-sequenceDiagram
-    autonumber
-    actor Utilisateur
-    participant App as Application Mobile
-    participant API as API PHP
-    participant BDD as Base de Données
-
-    Utilisateur->>App: Saisir email + mot de passe
-    App->>API: POST /connexion
-    API->>BDD: Vérifier identifiants
-    BDD-->>API: Données utilisateur + token JWT
-    API-->>App: Retourne le JWT + données de session
