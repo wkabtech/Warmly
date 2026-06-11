@@ -51,6 +51,6 @@ Ce projet valide des compétences clés directement transférables au **Support 
 ---
 
 ## 🙋‍♂️ Auteur
-* **KABLI Walid* * **LinkedIn :** [Ton lien]
-* **GitHub :** [https://github.com/wkabtech]
+* **LinkedIn :** linkedin.com/in/walidkabli
+* **GitHub :** github.com/wkabtech
 
