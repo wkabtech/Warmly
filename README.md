@@ -35,40 +35,6 @@
 
 ---
 
-## 🛠️ Compétences Support, Système & Réseau développées
-Ce projet valide des compétences clés directement transférables au **Support Informatique et à l'Administration Système** :
-
-* **Administration & Système (Linux/LAMP) :** * Déploiement et sécurisation d'un serveur web Linux.
-  * Gestion et requêtage d'une base de données relationnelle (MySQL/MariaDB).
-  * Maintenance du serveur : gestion des droits d'accès, nettoyage et optimisation de la BDD.
-* **Réseau & Protocoles :**
-  * Configuration réseau de l'ESP8266 (appairage Wi-Fi, attribution IP).
-  * Utilisation de protocoles légers et industriels (**MQTT**) et d'architectures d'API (REST).
-* **Troubleshooting & Analyse (Le cœur du métier de support) :**
-  * **Analyse de logs** serveur et applicatifs pour identifier les pannes.
-  * Diagnostic et résolution de dysfonctionnements réseau (pertes de paquets, timeouts, codes d'erreur HTTP).
-  * Tests d'intégration et débogage matériel/logiciel en autonomie.
-
----
-
-## 🙋‍♂️ Auteur
-* *LinkedIn :* https://linkedin.com/in/walidkabli
-* *GitHub :* https://github.com/wkabtech
-
-```mermaid
-  sequenceDiagram
-    autonumber
-    actor Utilisateur
-    participant App as Application Mobile
-    participant API as API PHP
-    participant BDD as Base de Données
-
-    Utilisateur->>App: Saisir email + mot de passe
-    App->>API: POST /connexion
-    API->>BDD: Vérifier identifiants
-    BDD-->>API: Données utilisateur + token JWT
-    API-->>App: Retourne le JWT + données de session
-```
 ## 📊 Architecture, Flux Réseaux & Diagrammes
 *Cliquez sur les sections ci-dessous pour dérouler et analyser les flux et l'architecture technique du projet.*
 
@@ -158,3 +124,40 @@ classDiagram
   Main *-- Temperature
   Main *-- FilPilote
   Main *-- OTA
+```
+---
+
+## 🛠️ Compétences Support, Système & Réseau développées
+Ce projet valide des compétences clés directement transférables au **Support Informatique et à l'Administration Système** :
+
+* **Administration & Système (Linux/LAMP) :** * Déploiement et sécurisation d'un serveur web Linux.
+  * Gestion et requêtage d'une base de données relationnelle (MySQL/MariaDB).
+  * Maintenance du serveur : gestion des droits d'accès, nettoyage et optimisation de la BDD.
+* **Réseau & Protocoles :**
+  * Configuration réseau de l'ESP8266 (appairage Wi-Fi, attribution IP).
+  * Utilisation de protocoles légers et industriels (**MQTT**) et d'architectures d'API (REST).
+* **Troubleshooting & Analyse (Le cœur du métier de support) :**
+  * **Analyse de logs** serveur et applicatifs pour identifier les pannes.
+  * Diagnostic et résolution de dysfonctionnements réseau (pertes de paquets, timeouts, codes d'erreur HTTP).
+  * Tests d'intégration et débogage matériel/logiciel en autonomie.
+
+---
+
+## 🙋‍♂️ Auteur
+* *LinkedIn :* https://linkedin.com/in/walidkabli
+* *GitHub :* https://github.com/wkabtech
+
+```mermaid
+  sequenceDiagram
+    autonumber
+    actor Utilisateur
+    participant App as Application Mobile
+    participant API as API PHP
+    participant BDD as Base de Données
+
+    Utilisateur->>App: Saisir email + mot de passe
+    App->>API: POST /connexion
+    API->>BDD: Vérifier identifiants
+    BDD-->>API: Données utilisateur + token JWT
+    API-->>App: Retourne le JWT + données de session
+```
