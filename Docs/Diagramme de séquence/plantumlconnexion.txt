@@ -1,0 +1,20 @@
+@startuml
+title Diagramme de séquence – Parcours utilisateur Warmly
+
+actor Utilisateur
+participant "Application mobile" as App
+participant "API PHP" as API
+participant "Base de données" as BDD
+participant "Module ESP8266" as ESP
+participant "MQTT Broker" as MQTT
+participant "Script Node.js (CRON)" as cron
+participant "Script Node.js" as NodeJS
+participant "Firebase" as Firebase
+
+== Connexion ==
+Utilisateur -> App : Saisir email + mot de passe
+App -> API : POST /connexion
+API -> BDD : Vérifier identifiants
+BDD --> API : Données utilisateur + token JWT
+API --> App : JWT + données
+@enduml

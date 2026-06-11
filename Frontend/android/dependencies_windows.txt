@@ -1,0 +1,81 @@
+Starting a Gradle Daemon, 1 busy and 1 incompatible and 1 stopped Daemons could not be reused, use --status for details
+> Task :gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors
+> Task :gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors
+> Task :gradle-plugin:shared:processResources NO-SOURCE
+> Task :gradle-plugin:settings-plugin:pluginDescriptors
+> Task :gradle-plugin:settings-plugin:processResources
+> Task :gradle-plugin:shared:compileKotlin
+> Task :gradle-plugin:shared:compileJava NO-SOURCE
+> Task :gradle-plugin:shared:classes UP-TO-DATE
+> Task :gradle-plugin:shared:jar
+> Task :gradle-plugin:settings-plugin:compileKotlin
+> Task :gradle-plugin:settings-plugin:compileJava NO-SOURCE
+> Task :gradle-plugin:settings-plugin:classes
+> Task :gradle-plugin:settings-plugin:jar
+> Task :gradle-plugin:react-native-gradle-plugin:checkKotlinGradlePluginConfigurationErrors
+> Task :gradle-plugin:react-native-gradle-plugin:pluginDescriptors
+> Task :gradle-plugin:react-native-gradle-plugin:processResources
+> Task :gradle-plugin:react-native-gradle-plugin:compileKotlin
+> Task :gradle-plugin:react-native-gradle-plugin:compileJava NO-SOURCE
+> Task :gradle-plugin:react-native-gradle-plugin:classes
+> Task :gradle-plugin:react-native-gradle-plugin:jar
+
+> Configure project :expo
+
+Using expo modules
+  - [32mexpo-application[0m (6.0.2)
+  - [32mexpo-asset[0m (11.0.3)
+  - [32mexpo-blur[0m (14.0.3)
+  - [32mexpo-constants[0m (17.0.8)
+  - [32mexpo-device[0m (7.0.3)
+  - [32mexpo-file-system[0m (18.0.10)
+  - [32mexpo-font[0m (13.0.3)
+  - [32mexpo-haptics[0m (14.0.1)
+  - [32mexpo-keep-awake[0m (14.0.2)
+  - [32mexpo-linear-gradient[0m (14.0.2)
+  - [32mexpo-linking[0m (7.0.5)
+  - [32mexpo-modules-core[0m (2.2.1)
+  - [32mexpo-notifications[0m (0.29.14)
+  - [32mexpo-splash-screen[0m (0.29.21)
+  - [32mexpo-system-ui[0m (4.0.8)
+  - [32mexpo-web-browser[0m (14.0.2)
+
+
+> Configure project :react-native-firebase_app
+:react-native-firebase_app package.json found at C:\Users\walid\Documents\warmlyeas\node_modules\@react-native-firebase\app\package.json
+:react-native-firebase_app:firebase.bom using default value: 33.13.0
+:react-native-firebase_app:play.play-services-auth using default value: 21.3.0
+:react-native-firebase_app package.json found at C:\Users\walid\Documents\warmlyeas\node_modules\@react-native-firebase\app\package.json
+:react-native-firebase_app:version set from package.json: 22.1.0 (22,1,0 - 22001000)
+:react-native-firebase_app:android.compileSdk using custom value: 35
+:react-native-firebase_app:android.targetSdk using custom value: 34
+:react-native-firebase_app:android.minSdk using custom value: 24
+:react-native-firebase_app:reactNativeAndroidDir C:\Users\walid\Documents\warmlyeas\node_modules\react-native\android
+
+> Configure project :react-native-firebase_messaging
+:react-native-firebase_messaging package.json found at C:\Users\walid\Documents\warmlyeas\node_modules\@react-native-firebase\messaging\package.json
+:react-native-firebase_app package.json found at C:\Users\walid\Documents\warmlyeas\node_modules\@react-native-firebase\app\package.json
+:react-native-firebase_messaging:firebase.bom using default value: 33.13.0
+:react-native-firebase_messaging package.json found at C:\Users\walid\Documents\warmlyeas\node_modules\@react-native-firebase\messaging\package.json
+:react-native-firebase_messaging:version set from package.json: 22.1.0 (22,1,0 - 22001000)
+:react-native-firebase_messaging:android.compileSdk using custom value: 35
+:react-native-firebase_messaging:android.targetSdk using custom value: 34
+:react-native-firebase_messaging:android.minSdk using custom value: 24
+:react-native-firebase_messaging:reactNativeAndroidDir C:\Users\walid\Documents\warmlyeas\node_modules\react-native\android
+
+> Configure project :react-native-reanimated
+Android gradle plugin: 8.6.0
+Gradle: 8.10.2
+
+> Task :dependencies
+
+------------------------------------------------------------
+Root project 'warmly'
+------------------------------------------------------------
+
+No configurations
+
+A web-based, searchable dependency report is available by adding the --scan option.
+
+BUILD SUCCESSFUL in 1m 24s
+14 actionable tasks: 14 executed

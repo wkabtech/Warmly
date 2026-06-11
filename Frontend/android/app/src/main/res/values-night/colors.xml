@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="notification_color">#03082F</color> <!-- Couleur bleu foncé pour le thème sombre -->
+</resources>

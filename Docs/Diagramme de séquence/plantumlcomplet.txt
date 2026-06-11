@@ -1,0 +1,59 @@
+@startuml
+title Diagramme de séquence – Parcours utilisateur Warmly
+
+actor Utilisateur
+participant "Application mobile" as App
+participant "API PHP" as API
+participant "Base de données" as BDD
+participant "Module ESP8266" as ESP
+participant "MQTT Broker" as MQTT
+participant "Script Node.js (CRON)" as cron
+participant "Script Node.js" as NodeJS
+participant "Firebase" as Firebase
+
+== Connexion ==
+Utilisateur -> App : Saisir email + mot de passe
+App -> API : POST /connexion
+API -> BDD : Vérifier identifiants
+BDD --> API : Données utilisateur + token JWT
+API --> App : JWT + données
+
+== Appairage du radiateur ==
+Utilisateur -> App : Appairer un nouveau radiateur
+App -> API : POST /radiateurs (token)
+API -> BDD : Créer le radiateur
+API -> MQTT : Envoi via MQTT (topic init)
+ESP --> API : Confirme via HTTP + ID
+
+== Envoi des données capteurs ==
+loop
+ESP -> API : POST /temperatures
+ESP -> API : POST /consommations
+API -> BDD : Enregistrer mesures
+API --> App : GET /temperatures + /consommations
+API -> NodeJS : seuil franchi ?
+NodeJS -> Firebase : Notification push
+Firebase -> App : Affiche alerte
+end
+
+== Commande manuelle ==
+Utilisateur -> App : Sélectionner un mode (éco, confort…)
+App -> API : POST /changer_mode (ID + mode)
+API -> MQTT : Publier l’ordre sur le topic radiateur
+MQTT -> ESP : Réception de l’ordre
+ESP -> API : Confirme application du mode
+API -> NodeJS : notifier changement de mode
+NodeJS -> Firebase : Notification push
+Firebase -> App : Affiche alerte
+
+== Planning ==
+Utilisateur -> App : Créer une programmation
+App -> API : POST /programmation
+API -> BDD : Enregistrer
+cron -> API : Vérifie la programmation
+API -> MQTT : Envoi de l’ordre fil pilote
+ESP -> API : Confirme application du mode
+API -> NodeJS : notifier changement de mode
+NodeJS -> Firebase : Notification push
+Firebase -> App : Affiche alerte
+@enduml

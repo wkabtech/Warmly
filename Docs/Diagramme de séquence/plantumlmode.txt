@@ -1,0 +1,23 @@
+@startuml
+title Diagramme de séquence – Parcours utilisateur Warmly
+
+actor Utilisateur
+participant "Application mobile" as App
+participant "API PHP" as API
+participant "Base de données" as BDD
+participant "Module ESP8266" as ESP
+participant "MQTT Broker" as MQTT
+participant "Script Node.js (CRON)" as cron
+participant "Script Node.js" as NodeJS
+participant "Firebase" as Firebase
+
+== Commande manuelle ==
+Utilisateur -> App : Sélectionner un mode (éco, confort…)
+App -> API : POST /changer_mode (ID + mode)
+API -> MQTT : Publier l’ordre sur le topic radiateur
+MQTT -> ESP : Réception de l’ordre
+ESP -> API : Confirme application du mode
+API -> NodeJS : notifier changement de mode
+NodeJS -> Firebase : Notification push
+Firebase -> App : Affiche alerte
+@enduml

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "526769789623",
+    "project_id": "warmly-a9c46",
+    "storage_bucket": "warmly-a9c46.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526769789623:android:acf3cfaef156aba8568b32",
+        "android_client_info": {
+          "package_name": "com.wkabrostand.warmly"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUbFttsZhOyFZGVSN09ljDH86zw0ld2t4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

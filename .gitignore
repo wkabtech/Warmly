@@ -1,0 +1,24 @@
+# Dépendances Frontend (React Native / Expo)
+Frontend/node_modules/
+Frontend/.expo/
+Frontend/dist/
+Frontend/export-dist/
+
+# Dépendances Backend (Node.js et PHP Composer)
+node_modules/
+**/node_modules/
+Backend/warmly_api/vendor/
+
+# Fichiers de build ESP8266
+ESP8266/build/
+
+# Fichiers de configuration sensibles / Clés secrètes
+**/*.env
+**/config_secret.php
+**/jwt_secret.php
+**/*firebase-adminsdk.json
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+Frontend/.idea/

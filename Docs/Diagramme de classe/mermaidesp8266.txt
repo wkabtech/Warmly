@@ -1,0 +1,82 @@
+classDiagram
+  class Main {
+    -wifiClient : WiFiClient
+    -mqttClient : PubSubClient
+    -fp : FilPilote
+    -consommation : Consommation
+    -temperature : Temperature
+    -configManager : ConfigManager
+    -setup()
+    -loop()
+    -callback()
+    -reconnectMQTT()
+    -envoyerStatutConnexion()
+  }
+
+  class ConfigManager {
+    -creds : WifiCredentials
+    -server : ESP8266WebServer
+    -dns : DNSServer
+    -configValid : bool
+    +begin()
+    +startConfigPortal()
+    +handleClient()
+    +resetConfig()
+    +supprimerRadiateurServeur()
+    +getSSID()
+    +getPassword()
+    +getUtilisateurId()
+    +getPieceId()
+    +getRadiateurId()
+    +getToken()
+  }
+
+  class Consommation {
+    -pinA0 : int
+    -energieWh : float
+    -serverUrl : String
+    -authToken : String
+    -radId : int
+    +mesurerEtCalculer()
+    +setRadiateurId()
+    +setToken()
+    +setUrl()
+  }
+
+  class Temperature {
+    -dhtPin : int
+    -serverUrl : String
+    -authToken : String
+    -radId : int
+    +begin()
+    +envoyerTemperature()
+    +setRadiateurId()
+    +setToken()
+    +setUrl()
+  }
+
+  class FilPilote {
+    -gpioAlternancePositive : int
+    -gpioAlternanceNegative : int
+    +confort()
+    +eco()
+    +arret()
+    +horsGel()
+    +confortMoins1()
+    +confortMoins2()
+    +commandeOrdres()
+  }
+
+  class OTA {
+    +setupOTA()
+    +checkForOTA()
+    +checkOTAIntervalle()
+    +handleOTAMQTT()
+  }
+
+  Main *-- ConfigManager
+  Main *-- Consommation
+  Main *-- Temperature
+  Main *-- FilPilote
+  Main *-- OTA
+

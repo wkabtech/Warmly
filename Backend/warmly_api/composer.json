@@ -1,0 +1,16 @@
+{
+    "name": "walid/warmly_api",
+    "autoload": {
+        "psr-4": {
+            "Walid\\WarmlyApi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "warmly"
+        }
+    ],
+    "require": {
+        "firebase/php-jwt": "^6.11"
+    }
+}
