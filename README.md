@@ -145,6 +145,110 @@ sequenceDiagram
 ```
 </details>
 
+<details><summary><b>👁️ Diagramme de Séquence : Appairage du Module IoT</b></summary><p>Initialisation et provisionnement réseau d'un nouveau radiateur sur le parc.</p>
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Utilisateur
+    participant App as Application Mobile
+    participant API as API PHP
+    participant BDD as Base de Données
+    participant MQTT as MQTT Broker
+    participant ESP as Module ESP8266
+
+    Utilisateur->>App: Appairer un nouveau radiateur
+    App->>API: POST /radiateurs (token)
+    API->>BDD: Créer l'équipement
+    API->>MQTT: Envoi provisionnement (topic init)
+    ESP-->>API: HTTP Confirmation d'écoute + ID unique
+```
+</details>
+
+<details><summary><b>👁️ Diagramme de Séquence : Commande Manuelle & Alerting Push</b></summary><p>Chaîne de transmission d'un ordre temps réel et notification asynchrone de l'état du terminal.</p>
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Utilisateur
+    participant App as Application Mobile
+    participant API as API PHP
+    participant MQTT as MQTT Broker
+    participant ESP as Module ESP8266
+    participant NodeJS as Script Node.js
+    participant Firebase as Firebase Cloud Messaging
+
+    Utilisateur->>App: Sélectionner un mode (éco, confort…)
+    App->>API: POST /changer_mode (ID + mode)
+    API->>MQTT: Publier l'ordre sur le topic du radiateur
+    MQTT->>ESP: Push instantané de l'ordre au terminal
+    ESP->>API: HTTP Confirmation de commutation
+    API->>NodeJS: Requête de notification (changement d'état)
+    NodeJS->>Firebase: Envoi payload de notification
+    Firebase->>App: Alerte visuelle (Push notification)
+```
+</details>
+
+<details><summary><b>👁️ Diagramme de Séquence : Automatisation par Tâche Planifiée (CRON)</b></summary><p>Gestion de l'automatisation via ordonnanceur système et vérification d'état.</p>
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Utilisateur
+    participant App as Application Mobile
+    participant API as API PHP
+    participant BDD as Base de Données
+    participant CRON as Script Node.js (CRON)
+    participant MQTT as MQTT Broker
+    participant ESP as Module ESP8266
+    participant NodeJS as Script Node.js
+    participant Firebase as Firebase
+
+    Utilisateur->>App: Créer une programmation horaire
+    App->>API: POST /programmation
+    API->>BDD: Enregistrer le planning
+    
+    loop Toutes les minutes (Ordonnancement)
+        CRON->>API: Déclenchement / Vérifier programmations actuelles
+    end
+    
+    API->>MQTT: Publier l'ordre de planning requis
+    MQTT->>ESP: Réception de l'ordre par le radiateur
+    ESP->>API: HTTP Confirmation de commutation
+    API->>NodeJS: Requête de notification
+    NodeJS->>Firebase: Envoi payload
+    Firebase->>App: Notification push affichée
+```
+</details>
+
+<details><summary><b>👁️ Diagramme de Séquence : Collecte des Capteurs & Supervision de Seuils</b></summary><p>Boucle de télémétrie IoT (Observabilité) et détection d'anomalies sur le réseau de capteurs.</p>
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant ESP as Module ESP8266
+    participant API as API PHP
+    participant BDD as Base de Données
+    participant App as Application Mobile
+    participant NodeJS as Script Node.js
+    participant Firebase as Firebase
+
+    loop Télémétrie continue
+        ESP->>API: POST /temperatures (Payload DHT)
+        ESP->>API: POST /consommations (Payload Courant)
+        API->>BDD: Stockage des métriques (MySQL)
+        App->>API: GET /temperatures + /consommations (Polling graphique)
+        API-->>App: Retourne l'historique JSON
+        
+        alt Seuil d'alerte franchi (Anomalie / Surchauffe)
+            API->>NodeJS: Alerte déclenchée
+            NodeJS->>Firebase: Push notification critique
+            Firebase->>App: Affichage immédiat d'une alerte de sécurité
+        end
+    end
+```
+</details>
+
 ## 🛠️ Compétences Support, Système & Réseau développées
 Ce projet valide des compétences clés directement transférables au **Support Informatique et à l'Administration Système** :
 
