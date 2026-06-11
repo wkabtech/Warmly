@@ -5,7 +5,7 @@
 ---
 
 ## 📷 Démonstration Vidéo
-👉 **[Regarder la vidéo de présentation et de démonstration (YouTube)](https://www.youtube.com/watch?v=ZZM5sicDr08)**
+👉 **[Regarder la vidéo de présentation et de démonstration (YouTube)](https://youtu.be/BLQS33lYxwc)**
 
 ---
 
