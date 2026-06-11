@@ -55,3 +55,92 @@ Ce projet valide des compétences clés directement transférables au **Support 
 * *LinkedIn :* https://linkedin.com/in/walidkabli
 * *GitHub :* https://github.com/wkabtech
 
+## 📊 Architecture, Flux Réseaux & Diagrammes
+*Cliquez sur les sections ci-dessous pour dérouler et analyser les flux et l'architecture technique du projet.*
+
+<details>
+<summary><b>👁️ Diagramme de Classe : Architecture du Code ESP8266</b></summary>
+<p>Structure orientée objet du firmware embarqué (C++) gérant les capteurs, le Wi-Fi et les ordres Fil Pilote.</p>
+
+```mermaid
+classDiagram
+  class Main {
+    -wifiClient : WiFiClient
+    -mqttClient : PubSubClient
+    -fp : FilPilote
+    -consommation : Consommation
+    -temperature : Temperature
+    -configManager : ConfigManager
+    -setup()
+    -loop()
+    -callback()
+    -reconnectMQTT()
+    -envoyerStatutConnexion()
+  }
+
+  class ConfigManager {
+    -creds : WifiCredentials
+    -server : ESP8266WebServer
+    -dns : DNSServer
+    -configValid : bool
+    +begin()
+    +startConfigPortal()
+    +handleClient()
+    +resetConfig()
+    +supprimerRadiateurServeur()
+    +getSSID()
+    +Password()
+    +getUtilisateurId()
+    +getPieceId()
+    +getRadiateurId()
+    +getToken()
+  }
+
+  class Consommation {
+    -pinA0 : int
+    -energieWh : float
+    -serverUrl : String
+    -authToken : String
+    -radId : int
+    +mesurerEtCalculer()
+    +setRadiateurId()
+    +setToken()
+    +setUrl()
+  }
+
+  class Temperature {
+    -dhtPin : int
+    -serverUrl : String
+    -authToken : String
+    -radId : int
+    +begin()
+    +envoyerTemperature()
+    +setRadiateurId()
+    +setToken()
+    +setUrl()
+  }
+
+  class FilPilote {
+    -gpioAlternancePositive : int
+    -gpioAlternanceNegative : int
+    +confort()
+    +eco()
+    +arret()
+    +horsGel()
+    +confortMoins1()
+    +confortMoins2()
+    +commandeOrdres()
+  }
+
+  class OTA {
+    +setupOTA()
+    +checkForOTA()
+    +checkOTAIntervalle()
+    +handleOTAMQTT()
+  }
+
+  Main *-- ConfigManager
+  Main *-- Consommation
+  Main *-- Temperature
+  Main *-- FilPilote
+  Main *-- OTA
