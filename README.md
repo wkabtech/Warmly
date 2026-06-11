@@ -26,11 +26,12 @@
 ---
 
 ## 📁 Structure du dépôt
-Pour faciliter la maintenance et la lecture, le projet est découpé par composants :
-* `/mobile-app` : Code source de l'application mobile.
-* `/backend` : API PHP, scripts Node.js et structure de la base de données.
-* `/esp8266-firmware` : Code embarqué (C++) du microcontrôleur.
-* `/scripts` : Scripts utilitaires (dont la gestion du protocole MQTT).
+* `Frontend/` : Code source de l'application mobile en React Native (TypeScript).
+* `Backend/` : 
+  * `warmly_api/` : API PHP pour la gestion des utilisateurs, des équipements et des données.
+  * `warmly_scripts/` : Scripts Node.js (gestion des notifications et tâches planifiées).
+* `ESP8266/` : Code embarqué (C++ Arduino) du microcontrôleur (Wi-Fi, Fil Pilote, Capteurs).
+* `Docs/` : Diagrammes de classe et de séquence (PlantUML / Mermaid) détaillant l'architecture.
 
 ---
 
