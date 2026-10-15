@@ -247,6 +247,9 @@ sequenceDiagram
         end
     end
 ```
+</details>
+
+```
 ## 🙋‍♂️ Auteur
 * *LinkedIn :* https://linkedin.com/in/walid-kabli
 * *GitHub :* https://github.com/wkabtech
