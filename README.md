@@ -249,7 +249,22 @@ sequenceDiagram
 ```
 </details>
 
-```
+## 🛠️ Compétences Support, Système & Réseau développées
+Ce projet valide des compétences clés directement transférables au **Support Informatique et à l'Administration Système** :
+
+* **Administration & Système (Linux/LAMP) :** * Déploiement et sécurisation d'un serveur web Linux.
+  * Gestion et requêtage d'une base de données relationnelle (MySQL/MariaDB).
+  * Maintenance du serveur : gestion des droits d'accès, nettoyage et optimisation de la BDD.
+* **Réseau & Protocoles :**
+  * Configuration réseau de l'ESP8266 (appairage Wi-Fi, attribution IP).
+  * Utilisation de protocoles légers et industriels (**MQTT**) et d'architectures d'API (REST).
+* **Troubleshooting & Analyse (Le cœur du métier de support) :**
+  * **Analyse de logs** serveur et applicatifs pour identifier les pannes.
+  * Diagnostic et résolution de dysfonctionnements réseau (pertes de paquets, timeouts, codes d'erreur HTTP).
+  * Tests d'intégration et débogage matériel/logiciel en autonomie.
+
+---
+
 ## 🙋‍♂️ Auteur
 * *LinkedIn :* https://linkedin.com/in/walid-kabli
 * *GitHub :* https://github.com/wkabtech
