@@ -1,6 +1,13 @@
-# 🌡️ Warmly – Écosystème IoT pour Radiateurs Connectés
+# 🌡️ Warmly – Écosystème IoT & Cloud pour Radiateurs Connectés
 
-**Warmly** est une alternative personnelle et améliorée à la solution Heatzy, développée de manière autonome. Ce projet permet de piloter, automatiser et superviser des radiateurs électriques à distance.
+![Docker](https://img.shields.io/badge/Docker-Container-blue?logo=docker)
+![Linux](https://img.shields.io/badge/Linux-Debian-red?logo=debian)
+![Node.js](https://img.shields.io/badge/Node.js-Workers-green?logo=node.js)
+![React Native](https://img.shields.io/badge/React_Native-Expo-61DAFB?logo=react)
+![MQTT](https://img.shields.io/badge/MQTT-Mosquitto-orange?logo=mqtt)
+![Security](https://img.shields.io/badge/Security-JWT%20%26%20Bcrypt-darkgreen)
+
+**Warmly** est une solution complète d'optimisation énergétique permettant de convertir des radiateurs électriques traditionnels (à Fil Pilote 4 et 6 ordres) en équipements connectés intelligents. Le projet permet de **réduire jusqu'à 15 % la facture de chauffage** grâce à des plannings automatisés, un suivi de télémétrie en temps réel (kWh, température, humidité) et un système d'alerting réactif.
 
 ---
 
@@ -10,40 +17,42 @@
 ---
 
 ## 🎯 Objectifs du projet
-* **Pilotage à distance :** Contrôle de radiateurs via une application mobile multiplateforme.
-* **Automatisation :** Création et application d'un planning de chauffe intelligent.
-* **Supervision (Observabilité) :** Suivi en temps réel (graphiques) de la consommation électrique, de la température et de l'humidité.
-* **Alerting :** Système de notifications push instantanées lors des changements d'état ou d'anomalies.
+* **Pilotage intelligent à distance :** Contrôle des ordres Fil Pilote (*Confort, Éco, Hors-Gel, Arrêt, Confort -1, Confort -2*) via application mobile.
+* **Sobriété énergétique & Automatisation :** Ordonnancement horaire hebdomadaire pour éliminer les gaspillages de chauffe.
+* **Supervision & Observabilité (Télémétrie) :** Visualisation graphique en temps réel de la consommation électrique (kWh) et du climat ambiant (température/humidité).
+* **Alerting temps réel :** Système de notifications push instantanées (Firebase Cloud Messaging) avec gestion fine des préférences par terminal physique (`device_id`).
 
 ---
 
-## 🔧 Stack Technique & Protocoles
-* **Matériel (IoT) :** Microcontrôleur **ESP8266** (C++ Arduino), capteurs environnementaux, gestion du Fil Pilote.
-* **Réseau & Protocoles :** **MQTT** (Script JS), HTTP / REST, requêtes asynchrones, Wi-Fi.
-* **Backend / Serveur :** API PHP + Node.js sur **serveur LAMP** (Linux, Apache, MySQL, PHP).
-* **Application Mobile :** React Native (TypeScript).
+## 🔧 Stack Technique & Architecture
+* **IoT Embarqué :** Microcontrôleur **ESP8266** (C++ modulaire), capteur de courant (ACS712), sonde thermique (DHT), gestion Fil Pilote (optocoupleurs/diodes) et mise à jour OTA (Over-The-Air).
+* **Flux Réseau & Protocoles :** **MQTT** (broker Mosquitto pour les flux temps réel asynchrones légers), HTTP/REST (télémétrie et provisioning), Wi-Fi captif.
+* **Backend & Daemon :** API REST en PHP (PDO sécurisé), Workers et scripts d'ordonnancement en **Node.js** (CRON, écoute MQTT).
+* **Base de Données :** **MySQL** (modélisation relationnelle complète, clés étrangères, index de performance).
+* **Application Mobile :** **React Native / Expo** (TypeScript, D3.js pour les graphiques, architecture par composants).
+* **Infrastructure & Sécurité :** Serveur Linux Debian, conteneurisation Docker, tokens JWT (`Bearer`), hachage Bcrypt des mots de passe.
 
 ---
 
 ## 📁 Structure du dépôt
 - `Frontend/` : Code source de l'application mobile en React Native (TypeScript).
 - `Backend/` : 
-  - `warmly_api/` : API PHP pour la gestion des utilisateurs, des équipements et des données.
-  - `warmly_scripts/` : Scripts Node.js (gestion des notifications et tâches planifiées).
+  - `warmly_api/` : API REST PHP pour la gestion de l'authentification, des équipements et des mesures.
+  - `warmly_scripts/` : Daemons et workers Node.js (écoute MQTT, notifications push FCM, tâches CRON).
   - `database/` : 
-    - `warmly_database.sql` : Script de création et d'initialisation du schéma de la base de données MySQL.
+    - `warmly_database.sql` : Script d'initialisation complet (9 tables, clés étrangères, index et seed data).
     - `warmly_database.png` : Schéma relationnel (ERD) de la base de données.
-- `ESP8266/` : Code embarqué (C++ Arduino) du microcontrôleur (Wi-Fi, Fil Pilote, Capteurs).
-- `Docs/` : Diagrammes de classe et de séquence (PlantUML / Mermaid) détaillant l'architecture.
+- `ESP8266/` : Code embarqué (C++ / Arduino) du microcontrôleur (Wi-Fi, Fil Pilote, Capteurs, OTA).
+- `Docs/` : Diagrammes d'architecture, de classe et de séquence (PlantUML / Mermaid).
 
 ---
 
 ## 📊 Architecture, Flux Réseaux & Diagrammes
-*Cliquez sur les sections ci-dessous pour dérouler et analyser les flux et l'architecture technique du projet.*
 
 <details>
 <summary><b>👁️ Schéma Relationnel : Base de Données (MySQL)</b></summary>
-<p>Modèle conceptuel et structure des tables de la base de données (<code>warmly_database.png</code>).</p>
+
+> Modèle conceptuel et structure relationnelle des 9 tables de l'écosystème Warmly (`warmly_database.png`).
 
 <p align="center">
   <img src="Backend/database/warmly_database.png" alt="Schéma de la base de données Warmly" width="800">
@@ -51,8 +60,9 @@
 </details>
 
 <details>
-<summary><b>👁️ Diagramme de Classe : Architecture du Code ESP8266</b></summary>
-<p>Structure orientée objet du firmware embarqué (C++) gérant les capteurs, le Wi-Fi et les ordres Fil Pilote.</p>
+<summary><b>👁️ Diagramme de Classe : Code Embarqué ESP8266 (C++)</b></summary>
+
+> Architecture orientée objet du firmware assurant l'autonomie du module, la gestion du portail captif et la sécurité thermique.
 
 ```mermaid
 classDiagram
@@ -81,7 +91,7 @@ classDiagram
     +resetConfig()
     +supprimerRadiateurServeur()
     +getSSID()
-    +Password()
+    +getPassword()
     +getUtilisateurId()
     +getPieceId()
     +getRadiateurId()
@@ -139,143 +149,131 @@ classDiagram
 ```
 </details>
 
-<details><summary><b>👁️ Diagramme de Séquence : Connexion & Authentification (JWT)</b></summary><p>Sécurisation des flux : vérification des identifiants et génération du token asynchrone.</p>
+<details>
+<summary><b>👁️ Diagramme de Séquence : Authentification Sécurisée (JWT)</b></summary>
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Utilisateur
     participant App as Application Mobile
-    participant API as API PHP
-    participant BDD as Base de Données
+    participant API as API REST
+    participant BDD as Base de Données MySQL
 
-    Utilisateur->>App: Saisir email + mot de passe
-    App->>API: POST /connexion
-    API->>BDD: Vérifier identifiants
-    BDD-->>API: Données utilisateur + token JWT
-    API-->>App: Retourne le JWT + données de session
+    Utilisateur->>App: Saisir identifiants (email + mot de passe)
+    App->>API: POST /connexion (Payload JSON)
+    API->>BDD: SELECT utilisateur (vérification hash Bcrypt)
+    BDD-->>API: Données valides
+    API->>BDD: INSERT session active (table tokens)
+    API-->>App: Retourne token JWT (Bearer) + identité utilisateur
 ```
 </details>
 
-<details><summary><b>👁️ Diagramme de Séquence : Appairage du Module IoT</b></summary><p>Initialisation et provisionnement réseau d'un nouveau radiateur sur le parc.</p>
+<details>
+<summary><b>👁️ Diagramme de Séquence : Commande Temps Réel & Notifications (Pub/Sub MQTT)</b></summary>
+
+> Architecture événementielle : l'ordre est routé via MQTT et le worker Node.js intercepte l'événement pour notifier les appareils mobiles selon leurs préférences (`device_id`).
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Utilisateur
     participant App as Application Mobile
-    participant API as API PHP
-    participant BDD as Base de Données
-    participant MQTT as MQTT Broker
+    participant API as API REST
+    participant MQTT as Broker MQTT (Mosquitto)
     participant ESP as Module ESP8266
+    participant NodeJS as Daemon Node.js
+    participant BDD as Base MySQL
+    participant Firebase as Firebase FCM
 
-    Utilisateur->>App: Appairer un nouveau radiateur
-    App->>API: POST /radiateurs (token)
-    API->>BDD: Créer l'équipement
-    API->>MQTT: Envoi provisionnement (topic init)
-    ESP-->>API: HTTP Confirmation d'écoute + ID unique
-```
-</details>
-
-<details><summary><b>👁️ Diagramme de Séquence : Commande Manuelle & Alerting Push</b></summary><p>Chaîne de transmission d'un ordre temps réel et notification asynchrone de l'état du terminal.</p>
-
-```mermaid
-sequenceDiagram
-    autonumber
-    actor Utilisateur
-    participant App as Application Mobile
-    participant API as API PHP
-    participant MQTT as MQTT Broker
-    participant ESP as Module ESP8266
-    participant NodeJS as Script Node.js
-    participant Firebase as Firebase Cloud Messaging
-
-    Utilisateur->>App: Sélectionner un mode (éco, confort…)
-    App->>API: POST /changer_mode (ID + mode)
-    API->>MQTT: Publier l'ordre sur le topic du radiateur
-    MQTT->>ESP: Push instantané de l'ordre au terminal
-    ESP->>API: HTTP Confirmation de commutation
-    API->>NodeJS: Requête de notification (changement d'état)
-    NodeJS->>Firebase: Envoi payload de notification
-    Firebase->>App: Alerte visuelle (Push notification)
-```
-</details>
-
-<details><summary><b>👁️ Diagramme de Séquence : Automatisation par Tâche Planifiée (CRON)</b></summary><p>Gestion de l'automatisation via ordonnanceur système et vérification d'état.</p>
-
-```mermaid
-sequenceDiagram
-    autonumber
-    actor Utilisateur
-    participant App as Application Mobile
-    participant API as API PHP
-    participant BDD as Base de Données
-    participant CRON as Script Node.js (CRON)
-    participant MQTT as MQTT Broker
-    participant ESP as Module ESP8266
-    participant NodeJS as Script Node.js
-    participant Firebase as Firebase
-
-    Utilisateur->>App: Créer une programmation horaire
-    App->>API: POST /programmation
-    API->>BDD: Enregistrer le planning
+    Utilisateur->>App: Sélectionner un mode (Éco, Confort, etc.)
+    App->>API: POST /radiateurs?action=changer_mode
+    API->>BDD: Mise à jour mode en base
+    API->>MQTT: Publish ordre (topic: radiateur/{uid}/{pid}/{rid}/mode)
     
-    loop Toutes les minutes (Ordonnancement)
-        CRON->>API: Déclenchement / Vérifier programmations actuelles
+    par Commande physique
+        MQTT->>ESP: Message reçu instantanément
+        ESP->>ESP: Commutation Fil Pilote (GPIOs)
+    and Événement de Notification
+        MQTT-->>NodeJS: Interception du message (Souscription topic)
+        NodeJS->>BDD: Récupération fcm_tokens et préférences (device_id)
+        NodeJS->>Firebase: Envoi payload push ciblé
+        Firebase->>App: Notification push reçue sur le terminal
     end
-    
-    API->>MQTT: Publier l'ordre de planning requis
-    MQTT->>ESP: Réception de l'ordre par le radiateur
-    ESP->>API: HTTP Confirmation de commutation
-    API->>NodeJS: Requête de notification
-    NodeJS->>Firebase: Envoi payload
-    Firebase->>App: Notification push affichée
 ```
 </details>
 
-<details><summary><b>👁️ Diagramme de Séquence : Collecte des Capteurs & Supervision de Seuils</b></summary><p>Boucle de télémétrie IoT (Observabilité) et détection d'anomalies sur le réseau de capteurs.</p>
+<details>
+<summary><b>👁️ Diagramme de Séquence : Automatisation Horaire (CRON & Ordonnanceur)</b></summary>
 
 ```mermaid
 sequenceDiagram
     autonumber
+    participant CRON as Worker pushScheduler.js
+    participant BDD as Base de Données MySQL
+    participant MQTT as Broker MQTT
     participant ESP as Module ESP8266
-    participant API as API PHP
-    participant BDD as Base de Données
-    participant App as Application Mobile
-    participant NodeJS as Script Node.js
-    participant Firebase as Firebase
 
-    loop Télémétrie continue
-        ESP->>API: POST /temperatures (Payload DHT)
-        ESP->>API: POST /consommations (Payload Courant)
-        API->>BDD: Stockage des métriques (MySQL)
-        App->>API: GET /temperatures + /consommations (Polling graphique)
-        API-->>App: Retourne l'historique JSON
+    loop Chaque heure pile
+        CRON->>BDD: SELECT programmations actives pour l'heure H
+        BDD-->>CRON: Liste des pièces et modes programmés
         
-        alt Seuil d'alerte franchi (Anomalie / Surchauffe)
-            API->>NodeJS: Alerte déclenchée
-            NodeJS->>Firebase: Push notification critique
-            Firebase->>App: Affichage immédiat d'une alerte de sécurité
+        opt Changement de consigne requis
+            CRON->>MQTT: Publish consigne horaire (topic radiateur)
+            MQTT->>ESP: Commutation automatique du Fil Pilote
         end
+        
+        CRON->>BDD: Nettoyage des programmations obsolètes
     end
 ```
 </details>
 
-## 🛠️ Compétences Système & Réseau développées
+<details>
+<summary><b>👁️ Diagramme de Séquence : Télémétrie & Supervision Continue</b></summary>
 
-* **Administration & Système (Linux/LAMP) :** * Déploiement et sécurisation d'un serveur web Linux.
-  * Gestion et requêtage d'une base de données relationnelle (MySQL/MariaDB).
-  * Maintenance du serveur : gestion des droits d'accès, nettoyage et optimisation de la BDD.
-* **Réseau & Protocoles :**
-  * Configuration réseau de l'ESP8266 (appairage Wi-Fi, attribution IP).
-  * Utilisation de protocoles légers et industriels (**MQTT**) et d'architectures d'API (REST).
-* **Troubleshooting & Analyse :**
-  * **Analyse de logs** serveur et applicatifs pour identifier les pannes.
-  * Diagnostic et résolution de dysfonctionnements réseau (pertes de paquets, timeouts, codes d'erreur HTTP).
-  * Tests d'intégration et débogage matériel/logiciel en autonomie.
+```mermaid
+sequenceDiagram
+    autonumber
+    participant ESP as Module ESP8266
+    participant API as API REST
+    participant BDD as Base de Données MySQL
+    participant App as Application Mobile
+
+    loop Intervalle régulier (Télémétrie continue)
+        ESP->>API: POST /temperatures (Température & Humidité)
+        ESP->>API: POST /consommations (Courant instantané & kWh calculés)
+        API->>BDD: INSERT métriques horodatées (indexées)
+    end
+
+    App->>API: GET /consommations?period=week (Consultation utilisateur)
+    API->>BDD: Aggrégation des données de consommation
+    BDD-->>API: Données consolidées
+    API-->>App: Historique JSON (Tracé des courbes D3.js / SVG)
+```
+</details>
+
+---
+
+## 🛠️ Compétences Techniques & Méthodologie
+
+* **DevOps & Administration Système :**
+  * Déploiement et sécurisation d'environnements Linux (Debian).
+  * Conteneurisation de microservices sous **Docker** et gestion des réseaux internes.
+  * Tâches d'automatisation et de maintenance récurrente via scripts Node.js / Bash.
+* **Architecture Réseau & Protocoles :**
+  * Gestion des flux synchrones (**REST / HTTP**) et asynchrones temps réel (**MQTT**).
+  * Séparation des contextes réseau (Wi-Fi local provisionné par portail captif vs communication Cloud).
+* **Cybersécurité & Données :**
+  * Sécurisation des flux : authentification par jetons **JWT**, hachage sécurisé des mots de passe.
+  * Intégrité de la base de données : requêtes préparées (protection contre les injections SQL), intégrité référentielle (`ON DELETE CASCADE`).
+  * Découplage de la gestion multi-appareils (`device_id`) pour un filtrage granulaire des notifications.
+* **Supervision & Troubleshooting :**
+  * Analyse de logs (serveur web, broker MQTT, moniteur série microcontrôleur).
+  * Résolution des incidents de connectivité et fiabilisation des reconnexions automatiques (Watchdog).
 
 ---
 
 ## 🙋‍♂️ Auteur
-* *LinkedIn :* https://linkedin.com/in/walid-kabli
-* *GitHub :* https://github.com/wkabtech
+* **Walid KABLI**
+* *LinkedIn :* [linkedin.com/in/walid-kabli](https://linkedin.com/in/walid-kabli)
+* *GitHub :* [github.com/wkabtech](https://github.com/wkabtech)
