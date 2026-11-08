@@ -41,6 +41,15 @@
 ## 📊 Architecture, Flux Réseaux & Diagrammes
 *Cliquez sur les sections ci-dessous pour dérouler et analyser les flux et l'architecture technique du projet.*
 
+### 🗄️ Schéma Relationnel de la Base de Données (ERD)
+Modèle conceptuel et structure des tables de la base de données (`Backend/database/warmly_database.png`) :
+
+<p align="center">
+  <img src="Backend/database/warmly_database.png" alt="Schéma de la base de données Warmly" width="800">
+</p>
+
+---
+
 <details>
 <summary><b>👁️ Diagramme de Classe : Architecture du Code ESP8266</b></summary>
 <p>Structure orientée objet du firmware embarqué (C++) gérant les capteurs, le Wi-Fi et les ordres Fil Pilote.</p>
