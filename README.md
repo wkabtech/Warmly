@@ -26,12 +26,15 @@
 ---
 
 ## 📁 Structure du dépôt
-* `Frontend/` : Code source de l'application mobile en React Native (TypeScript).
-* `Backend/` : 
-  * `warmly_api/` : API PHP pour la gestion des utilisateurs, des équipements et des données.
-  * `warmly_scripts/` : Scripts Node.js (gestion des notifications et tâches planifiées).
-* `ESP8266/` : Code embarqué (C++ Arduino) du microcontrôleur (Wi-Fi, Fil Pilote, Capteurs).
-* `Docs/` : Diagrammes de classe et de séquence (PlantUML / Mermaid) détaillant l'architecture.
+- `Frontend/` : Code source de l'application mobile en React Native (TypeScript).
+- `Backend/` : 
+  - `warmly_api/` : API PHP pour la gestion des utilisateurs, des équipements et des données.
+  - `warmly_scripts/` : Scripts Node.js (gestion des notifications et tâches planifiées).
+  - `database/` : 
+    - `warmly_database.sql` : Script de création et d'initialisation du schéma de la base de données MySQL.
+    - `warmly_database.png` : Schéma relationnel (ERD) de la base de données.
+- `ESP8266/` : Code embarqué (C++ Arduino) du microcontrôleur (Wi-Fi, Fil Pilote, Capteurs).
+- `Docs/` : Diagrammes de classe et de séquence (PlantUML / Mermaid) détaillant l'architecture.
 
 ---
 
